@@ -1,27 +1,35 @@
 <html lang="{{ .Site.Language }}">
 	<head>
 		<title>jad</title>
-		<link rel='icon' type='image/png' href='/jad.svg'>
-        <link rel='stylesheet' type='text/css' href='/style.css'>
-        <link rel='canonical' href='https://jad.red/'>
-		<meta name='viewport' content='width=device-width, initial-scale=1'>
-		<meta name="robots" content="index, follow">
-        <meta charset="utf-8">
+        {{ partial "meta.html" }}
 	</head>
 	<body>
         {{ partial "nav.html" . }}
         <main>
-            <div id='padder'></div>
-            {{ with .Pages }}{{ range . }}
-            <a href='{{ .RelPermalink }}'>
-                <article>
-                    <h1>{{ .Title }}</h1>
-                    {{ partial "desc.html" . }}
-                    <p>{{ .Summary | truncate 48 }}</p>
-                </article>
-            </a>
-            {{ end }}{{ end }}
-            <div id='padder'></div>
+            <div class="category">
+                <h1>Projects</h1>
+                {{ range (where .Site.Pages "Section" "project") }}
+                <a href='{{ .RelPermalink }}'>
+                    <article>
+                        <h2>{{ .Title }}</h2>
+                        {{ partial "desc.html" . }}
+                        <p>{{ .Summary | truncate 48 }}</p>
+                    </article>
+                </a>
+                {{ end }}
+            </div>
+            <div class="category">
+                <h1>Blog</h1>
+                {{ range (where .Site.Pages "Section" "blog") }}
+                <a href='{{ .RelPermalink }}'>
+                    <article>
+                        <h2>{{ .Title }}</h2>
+                        {{ partial "desc.html" . }}
+                        <p>{{ .Summary | truncate 48 }}</p>
+                    </article>
+                </a>
+                {{ end }}
+            </div>
         </main>
 	</body>
 </html>
